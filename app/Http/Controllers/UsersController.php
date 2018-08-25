@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\User;
+
+class UsersController extends Controller
+{
+    //
+    public function index()
+    {
+      // code...
+      $users = User::paginate(10);
+
+      return view('users.index', [
+        'users' => $users,
+      ]);
+    }
+
+    public function show($id)
+    {
+      // code...
+      $user = User::find($id);
+
+      return view('users.show', [
+        'user' => $user,
+      ]);
+    }
+}
