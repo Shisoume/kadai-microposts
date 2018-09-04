@@ -72,4 +72,12 @@ class User extends Authenticatable
       return $this->getFollowingsInformation()->where('follow_id', $userId)->exists();
     }
 
+    public function feed_microposts()
+    {
+      // タイムライン用にマイクロポストを取得するメソッド
+      $follow_user_ids = $this->getFollowingsInformation()-> pluck('users.id')->toArray();
+      $follow_user_ids[] = $this->id;
+      return Micropost::whereIn('user_id', $follow_user_ids);
+    }
+
 }
