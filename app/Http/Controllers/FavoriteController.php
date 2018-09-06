@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
+use App\Micropost; 
+
 class FavoriteController extends Controller
 {
     public function store(Request $request, $id)
@@ -18,9 +21,9 @@ class FavoriteController extends Controller
       return redirect()->back();
     }
 
-    public function index()
+    public function index($id)
     {
-      $favorite_microposts = \Auth::user()->getFavoriteInfo()->orderBy('created_at', 'desc')->paginate(10);
+      $favorite_microposts = User::find($id)->getFavoriteInfo()->orderBy('created_at', 'desc')->paginate(10);
       $data = [];
       $data = [
         'favorite_microposts' => $favorite_microposts,
